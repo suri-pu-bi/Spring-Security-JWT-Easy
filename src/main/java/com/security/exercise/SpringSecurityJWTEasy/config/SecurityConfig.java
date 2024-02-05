@@ -3,6 +3,7 @@ package com.security.exercise.SpringSecurityJWTEasy.config;
 import com.security.exercise.SpringSecurityJWTEasy.jwt.JwtFilter;
 import com.security.exercise.SpringSecurityJWTEasy.jwt.JwtUtil;
 import com.security.exercise.SpringSecurityJWTEasy.jwt.LoginFilter;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity // Security를 위한 Config
@@ -39,6 +44,35 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+
+        http
+                .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+
+                        CorsConfiguration configuration = new CorsConfiguration();
+
+                        // 프론트엔드에서 데이터를 보낼 3000 포트 허용
+                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+
+                        // GET, POST.. 모두 허용
+                        configuration.setAllowedMethods(Collections.singletonList("*"));
+
+                        // 프론트에서 credential 설정하면 true로 설정해야함
+                        configuration.setAllowCredentials(true);
+
+                        // 허용할 헤더
+                        configuration.setAllowedHeaders(Collections.singletonList("*"));
+
+                        // 허용을 할 시간
+                        configuration.setMaxAge(3600L);
+
+                        // Authorization header 허용
+                        configuration.setExposedHeaders(Collections.singletonList("Authorization"));
+
+                        return  configuration;
+                    }
+                })));
 
         // csrf disable : 세션 방식에서는 세션이 고정되기때문에 csrf 공격을 방어해줘야함
         // token 방식에서는 세션을 STATELESS로 관리하므로 csrf 공격을 방어하지 않아도됨
