@@ -1,11 +1,10 @@
 package com.security.exercise.SpringSecurityJWTEasy.controller;
 
 import com.security.exercise.SpringSecurityJWTEasy.service.JoinService;
-import com.security.exercise.SpringSecurityJWTEasy.service.JoinDTO;
+import com.security.exercise.SpringSecurityJWTEasy.dto.JoinDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller

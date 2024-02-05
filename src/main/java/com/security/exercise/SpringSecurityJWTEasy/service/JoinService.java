@@ -1,5 +1,6 @@
 package com.security.exercise.SpringSecurityJWTEasy.service;
 
+import com.security.exercise.SpringSecurityJWTEasy.dto.JoinDTO;
 import com.security.exercise.SpringSecurityJWTEasy.entity.UserEntity;
 import com.security.exercise.SpringSecurityJWTEasy.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

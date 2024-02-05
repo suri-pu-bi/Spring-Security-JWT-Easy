@@ -1,4 +1,4 @@
-package com.security.exercise.SpringSecurityJWTEasy.service;
+package com.security.exercise.SpringSecurityJWTEasy.dto;
 
 import lombok.*;
 
